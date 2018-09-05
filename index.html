@@ -8,31 +8,42 @@
   <title>Giphy-API</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js"></script>
 </head>
 
 <body>
-  <div class="container">
+        <div class="jumbotron">
+                <h1 class="display-4">GIF Generator!</h1>
+        </div>
+    <div class="container">
     <!-- TO DO: add a data-animal attribute to each button -->
-    <div id="buttons-view"></div>
+    <div id="buttons-view" class="btn-group" role="group" aria-label="Basic example"></div>
 
+    
+     
+<div class="col-xs-4">
     <form id="topic-form">
-      <label for="topic-input">Add a Topic, Yo!</label>
-      <input type="text" id="topic-input">
+            <label for="ex3">Add a Topic, Yo!</label>
+            <input class="form-control" type="text" id="topic-input">
+</div>
+            <br>
+          
       <br>
 
-      <input id="add-movie" type="submit" value="Add a Topic, Yo!">
+      <input id="add-movie" type="submit" class="btn btn-primary" value="Make Button!">
 
       <div id="images"></div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script type="text/javascript">
-        var topics = ["gryffindor", "slytherin", "hufflepuff", "ravenclaw"];
+  </div>
+ <script>
+  var topics = ["gryffindor", "slytherin", "hufflepuff", "ravenclaw"];
         function clear() {
           $("#images").empty();
         }
@@ -50,10 +61,11 @@
               var rating = (animals[i].rating);
               var image = (animals[i].images.fixed_height_still.url);
               // var imageAnimate = (animals[i].images.fixed_height.url);
-              var p = $("<p>").text("Rating: " + rating);
+              var p = $("<p>").html("Rating: " + rating);
               var img = $("<img>").attr("src", image).addClass("gif").attr('data-state', 'still').attr('data-still', response.data[i].images.fixed_height_still.url).attr('data-animate', response.data[i].images.fixed_height.url);
               var div = $("<div>").append(p, img);
-              $("#images").prepend(div);
+              var br = $("<br><br>");
+              $("#images").prepend(div, br);
             }
             $(".gif").on("click", function () {
               var state = $(this).attr("data-state");
@@ -85,12 +97,14 @@
             a.attr("data-name", topics[i]);
             // Providing the initial button text
             a.text(topics[i]);
+            a.addClass("btn btn-secondary");
             // Adding the button to the buttons-view div
             $("#buttons-view").append(a);
           }
         }
         $("#add-movie").on("click", function (event) {
           event.preventDefault();
+          clear();
           // This line grabs the input from the textbox
           var topic = $("#topic-input").val().trim();
           // Adding movie from the textbox to our array
@@ -100,8 +114,7 @@
         });
         $(document).on("click", ".topic-btn", displayGif);
         renderButtons();
-      </script>
-  </div>
+    </script>
 </body>
 
 </html>
